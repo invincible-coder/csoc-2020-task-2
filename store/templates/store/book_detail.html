@@ -22,6 +22,16 @@
     <dd>{{ num_available }}</dd>
 </dl>
 <button class="btn btn-primary" id="loan-button">Loan {{ book.title }}</button>
+
+{% if user.is_authenticated %}
+     <dt>Rate Book:</dt>
+     <dd>
+     <input id="rating" type="number" min="0" max="10" value="{{ book.rating }}">
+     <button class="btn btn-primary" id= "rate-button")">Rate {{ book.title }}</button>
+     </dd>
+		
+{% endif %}
+
 <script>
 $("#loan-button").click(function(){
     $.ajax({
@@ -43,6 +53,28 @@ $("#loan-button").click(function(){
 			alert("Some error occured");
 		}
 
+	})
+
+    var rating = document.getElementById("rating").value;
+    $.ajax({
+		url: "{% url 'rate-book'%}",
+		method:"POST",
+		data:{
+			'bid': {{ book.id }},
+			'rating':rating,
+		},
+		success: function(data, status, xhr){
+			if(data['message']=="success"){
+				location.reload();
+				alert('Book rating updated');
+			}
+			else{
+				alert(data['message']);
+			}
+		},
+		error: function(xhr, status, err){
+			alert('Some error occured');
+		}
 	})
 })
 </script>

@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}
+    <title>Authentication Login</title>
+{% endblock %}
+
+{% block form %}
+<h1>Login</h1>
+<form action="{% url 'login' %}" method="POST">
+    {% csrf_token %}
+    <div class="form-group">
+        <label>Username:</label>
+        <input class="form-control" type="text" name="Username" id="username" required>
+    </div>
+    <div class="form-group">
+        <label>Password:</label>
+        <input class="form-control" type="password" name="Password" id="password" required>
+    </div>
+    <button type="submit" class="btn btn-primary" value="Submit">Submit</button>
+    <div id="error-toast" style="color: red; text-align: center;">
+        {% if message %}
+            {{message}}
+        {% endif %}
+    </div>
+</form>
+<script>
+    $("#error-toast").setTimeout(() => {
+        if (message){
+            {{message}}
+        }
+    }, 500);
+</script>
+{% endblock %}

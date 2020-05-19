@@ -1,5 +1,6 @@
 from django.urls import path
 from store.views import *
+from django.conf.urls import include
 
 urlpatterns = [
     path('', index, name="index"),
@@ -8,4 +9,6 @@ urlpatterns = [
     path('books/loaned/', viewLoanedBooks, name="view-loaned"),
     path('books/loan/', loanBookView, name="loan-book"),
     path('books/return/', returnBookView, name="return-book"),
+    path('book/rate/',rateBookView,name='rate-book'),
+    path('',include('authentication.urls'))
 ]

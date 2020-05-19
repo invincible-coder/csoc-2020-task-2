@@ -1,0 +1,19 @@
+{% extends "login.html" %}
+
+{% block title %}
+    <title>Authentication Register</title>
+{% endblock %}
+
+{% block form %}
+    <h1>Register</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <table>
+           {{ form.as_table }}
+            <tr>
+               <td></td>
+               <td><input type="submit" name="submit" value="Register" /></td>
+            </tr>
+        </table>
+    </form>
+{% endblock %}
